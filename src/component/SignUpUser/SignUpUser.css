@@ -23,6 +23,10 @@
     border-radius: 8px;
 }
 
+.form-group p {
+    color: red; 
+}
+
 .button-group {
     display: flex;
     justify-content: space-between;
