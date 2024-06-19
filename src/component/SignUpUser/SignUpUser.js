@@ -1,22 +1,38 @@
+/*
+File name: src/component/SignUpUser/SignUpUser.js
+Student Name: Janiel Mark Javier
+Student ID: 301379377
+Date: 06/18/2024
+*/
+
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import './SignUpUser.css';
 
+//defining SignUpUser component
 const SignUpUser = () => {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
-    const password = useRef({});
+    
+    const password = useRef({}); //creating a ref for the password field
     password.current = watch("password", "");
 
+
+    //submit function, displaying data in an alert and logging in console
     const onSubmit = data => {
-        alert(JSON.stringify(data));
+        if (data.password !== data.confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+        alert(JSON.stringify(data, null, 2));
         console.log(data);
     };
 
+    //cancel button function
     const onCancel = () => {
         reset();
     };
 
-
+    //return form
     return (
         <div className="form-container">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -42,7 +58,7 @@ const SignUpUser = () => {
                     {errors.password && <p>This field is required. Kindly populate this field</p>}
                 </div>
                 <div className="form-group">
-                    <input type="password" {...register("confirmPassword", { required: true, validate: value => value === password.current || "The passwords do not match" })} placeholder="Confirm Password" />
+                    <input type="password" {...register("confirmPassword", { required: true })} placeholder="Confirm Password" />
                     {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
                 </div>
                 <div className="button-group">
